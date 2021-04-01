@@ -10,6 +10,8 @@ else ifeq ($(ARCH),aarch64)
 ARCH3264 =
 else ifeq ($(ARCH),arm)
 ARCH3264 =
+else ifeq ($(ARCH),riscv64)
+ARCH3264 =
 else
 $(error unknown architecture $(ARCH))
 endif
@@ -52,6 +54,11 @@ ifeq ($(ARCH),arm)
 endif
 
 ifeq ($(ARCH),aarch64)
+  LDFLAGS += --defsym=EFI_SUBSYSTEM=0x0a
+  FORMAT = -O binary
+endif
+
+ifeq ($(ARCH),riscv64)
   LDFLAGS += --defsym=EFI_SUBSYSTEM=0x0a
   FORMAT = -O binary
 endif
